@@ -1,0 +1,35 @@
+<div class="cb" id="chatbot" data-faqs-url="{% url 'core:chatbot_faqs' %}" data-ask-url="{% url 'core:chatbot_ask' %}" data-callback-url="{% url 'core:chatbot_callback' %}"
+     data-whatsapp="{{ company.whatsapp_link }}" data-phone="{{ company.phone|default:'9856082231' }}" data-quote-url="{% url 'inquiries:get_a_quote' %}">
+  <button type="button" class="cb-launcher" id="cbLauncher" aria-label="Open chat assistant" aria-expanded="false" aria-controls="cbPanel">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M4 3h16a2 2 0 012 2v11a2 2 0 01-2 2H10l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+    <span class="cb-launcher-text">Ask us</span>
+  </button>
+
+  <section class="cb-panel" id="cbPanel" role="dialog" aria-label="Highnoon virtual assistant" hidden>
+    <header class="cb-head">
+      <div><strong>Highnoon Assistant</strong><span>Automated answers to common questions</span></div>
+      <button type="button" class="cb-close" id="cbClose" aria-label="Close chat">&times;</button>
+    </header>
+
+    <div class="cb-messages" id="cbMessages" aria-live="polite"></div>
+    <div class="cb-suggestions" id="cbSuggestions"></div>
+
+    <form class="cb-input" id="cbForm" autocomplete="off">
+      <input type="text" id="cbText" maxlength="200" placeholder="Type your question..." aria-label="Type your question">
+      <button type="submit" aria-label="Send">&#10148;</button>
+    </form>
+
+    <form class="cb-callback" id="cbCallback" hidden>
+      {% csrf_token %}
+      <p>Leave your details and our team will call you back.</p>
+      <input type="text" name="name" placeholder="Your name" required maxlength="150" aria-label="Your name">
+      <input type="tel" name="phone" placeholder="Phone number" required maxlength="30" aria-label="Phone number">
+      <input type="email" name="email" placeholder="Email" required aria-label="Email">
+      <div class="hp-field"><input type="text" name="hp_website" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
+      <div class="cb-callback-actions">
+        <button type="submit" class="btn btn-accent">Request call back</button>
+        <button type="button" id="cbCallbackCancel" class="cb-link">Cancel</button>
+      </div>
+    </form>
+  </section>
+</div>

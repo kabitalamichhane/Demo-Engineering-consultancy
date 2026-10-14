@@ -1,0 +1,73 @@
+{% load static %}
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div>
+      <h2>Have an engineering, construction or fabrication project?</h2>
+      <p>Let's Work Together.</p>
+    </div>
+    <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent btn-lg">Get a Quote</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      {% if company.logo %}
+        <img src="{{ company.logo.url }}" alt="{{ company.company_name }} logo" class="footer-logo">
+      {% else %}
+        <img src="{% static 'img/logo.jpg' %}" alt="{{ company.company_name }} logo" class="footer-logo" data-fallback="hide">
+      {% endif %}
+      <h3>{{ company.company_name|default:"HIGHNOON ENGINEERING SOLUTIONS PVT. LTD." }}</h3>
+      <p>{{ company.tagline|default:"Engineering, Construction &amp; Metal Fabrication Solutions in Pokhara, Nepal." }}</p>
+      <div class="footer-social">
+        {% if facebook_url %}<a href="{{ facebook_url }}" aria-label="Facebook" target="_blank" rel="noopener noreferrer">FB</a>{% endif %}
+        {% if company.linkedin_url %}<a href="{{ company.linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener">IN</a>{% endif %}
+        {% if company.instagram_url %}<a href="{{ company.instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener">IG</a>{% endif %}
+        {% if company.youtube_url %}<a href="{{ company.youtube_url }}" aria-label="YouTube" target="_blank" rel="noopener">YT</a>{% endif %}
+      </div>
+      {% if company.google_review_url %}<p style="margin-top:14px;"><a href="{{ company.google_review_url }}" target="_blank" rel="noopener noreferrer">&#9733; Review us on Google</a></p>{% endif %}
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="{% url 'core:home' %}">Home</a></li>
+        <li><a href="{% url 'core:about' %}">About Us</a></li>
+        <li><a href="{% url 'services:service_list' %}">Services</a></li>
+        <li><a href="{% url 'projects:project_list' %}">Projects</a></li>
+        <li><a href="{% url 'updates:update_list' %}">Updates</a></li>
+        <li><a href="{% url 'careers:job_list' %}">Careers</a></li>
+        <li><a href="{% url 'inquiries:work_with_us' %}">Work With Us</a></li>
+        <li><a href="{% url 'inquiries:contact' %}">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="{% url 'services:service_list' %}">Engineering Consultancy</a></li>
+        <li><a href="{% url 'services:service_list' %}">Structural Engineering</a></li>
+        <li><a href="{% url 'services:service_list' %}">Construction</a></li>
+        <li><a href="{% url 'services:service_list' %}">Infrastructure</a></li>
+        <li><a href="{% url 'services:metal_fabrication' %}">Metal Fabrication</a></li>
+        <li><a href="{% url 'services:service_list' %}">Steel Fabrication</a></li>
+        <li><a href="{% url 'services:service_list' %}">Project Management</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="footer-contact">
+        <li>{{ company.address_line|default:"Pokhara-14, BP Marg" }},<br>{{ company.city|default:"Pokhara" }}, {{ company.country|default:"Nepal" }}, {{ company.postal_code|default:"33700" }}</li>
+        <li><a href="tel:{{ company.phone|default:'9856082231' }}">{{ company.phone|default:"9856082231" }}</a></li>
+        <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ company.email|default:'info.highnoon2019@gmail.com'|urlencode }}&amp;su=Enquiry%20for%20Highnoon%20Engineering%20Solutions" target="_blank" rel="noopener noreferrer">{{ company.email|default:"info.highnoon2019@gmail.com" }}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; {% now "Y" %} {{ company.company_name|default:"Highnoon Engineering Solutions Pvt. Ltd." }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

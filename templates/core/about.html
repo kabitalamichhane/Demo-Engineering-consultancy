@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / About Us</p>
+    <h1>About Highnoon Engineering Solutions</h1>
+    <p>An engineering, construction and metal fabrication company based in Pokhara, Nepal.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container split fade-in">
+    <div>
+      <span class="eyebrow">Our Company</span>
+      <h2>Engineering Solutions in Pokhara, Nepal</h2>
+      <p>
+        {{ company.company_name|default:"Highnoon Engineering Solutions Pvt. Ltd." }} provides
+        engineering, construction and metal fabrication services from Pokhara, Nepal. Our work
+        spans engineering consultancy, structural engineering, building construction,
+        infrastructure development and custom fabrication.
+      </p>
+      <p>
+        {% if company.description %}{{ company.description }}{% else %}
+        We approach every project — from structural works to steel and metal fabrication —
+        with a focus on sound engineering practice, coordinated execution and clear
+        communication with clients, contractors and partners.
+        {% endif %}
+      </p>
+    </div>
+    <div>
+      <ul class="check-list">
+        <li>Engineering consultancy and structural engineering</li>
+        <li>Building construction and infrastructure development</li>
+        <li>Structural and industrial metal fabrication</li>
+        <li>Custom steel works and fabrication to specification</li>
+        <li>Project coordination and quality-focused execution</li>
+        <li>Maintenance, renovation and retrofitting services</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% if statistics %}
+<section class="stats-strip">
+  <div class="container stats-grid">
+    {% for stat in statistics %}
+    <div>
+      <div class="stat-value">{{ stat.value }}</div>
+      <div class="stat-title">{{ stat.title }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% include "includes/director_message.html" %}
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">How We Work</span><h2>Our Approach</h2></div>
+    <div class="grid grid-3">
+      <div class="card fade-in"><div class="card-body">
+        <div class="icon-tile">01</div>
+        <h3>Engineering First</h3>
+        <p>Every project begins with sound engineering — structural, construction and fabrication planning suited to the site and scope.</p>
+      </div></div>
+      <div class="card fade-in"><div class="card-body">
+        <div class="icon-tile">02</div>
+        <h3>Coordinated Execution</h3>
+        <p>Construction and fabrication work is coordinated closely with clients, contractors and consultants throughout the project.</p>
+      </div></div>
+      <div class="card fade-in"><div class="card-body">
+        <div class="icon-tile">03</div>
+        <h3>Quality &amp; Safety</h3>
+        <p>We follow quality-focused, safety-conscious practices across engineering, construction and metal fabrication work.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+{% include "includes/team_section.html" %}
+
+<section>
+  <div class="container text-center fade-in">
+    <span class="eyebrow">Get Started</span>
+    <h2>Let's Discuss Your Project</h2>
+    <p style="max-width:560px;margin:0 auto 24px;">Whether it's engineering, construction or metal fabrication, our team is ready to help.</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent btn-lg">Get a Quote</a>
+      <a href="{% url 'inquiries:work_with_us' %}" class="btn btn-ghost btn-lg">Work With Us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

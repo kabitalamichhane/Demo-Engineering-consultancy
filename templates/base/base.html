@@ -1,0 +1,61 @@
+{% load static seo_tags %}<!DOCTYPE html>
+<html lang="{{ ui_lang|default:'en' }}"{% if ui_lang and ui_lang != 'en' %} class="lang-{{ ui_lang }} i18n-pending"{% endif %}>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block seo_title %}{{ seo_title|default:company.default_seo_title }}{% endblock %}</title>
+<meta name="description" content="{% block seo_description %}{{ seo_description|default:company.default_seo_description }}{% endblock %}">
+<meta name="robots" content="{% if seo_noindex %}noindex, nofollow{% else %}index, follow, max-image-preview:large{% endif %}">
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+{% if company.google_site_verification %}<meta name="google-site-verification" content="{{ company.google_site_verification }}">{% endif %}
+{% if company.bing_site_verification %}<meta name="msvalidate.01" content="{{ company.bing_site_verification }}">{% endif %}
+
+<meta property="og:type" content="{{ og_type|default:'website' }}">
+<meta property="og:title" content="{% block og_title %}{{ seo_title|default:company.default_seo_title }}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}{{ seo_description|default:company.default_seo_description }}{% endblock %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:site_name" content="{{ company.company_name }}">
+<meta property="og:image" content="{% share_image_url %}">
+<meta property="og:image:alt" content="{{ seo_image_alt|default:company.company_name }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo_title|default:company.default_seo_title }}">
+<meta name="twitter:description" content="{{ seo_description|default:company.default_seo_description }}">
+<meta name="twitter:image" content="{% share_image_url %}">
+
+{% if company.favicon %}<link rel="icon" href="{{ company.favicon.url }}">{% else %}<link rel="icon" href="{% static 'img/logo.jpg' %}">{% endif %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block extra_css %}{% endblock %}
+
+{% site_jsonld %}
+{% page_jsonld %}
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+{% include "includes/header.html" %}
+
+<main id="main-content">
+{% if messages %}
+  <div class="container">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% block content %}{% endblock %}
+</main>
+
+{% include "includes/footer.html" %}
+{% include "includes/chat_buttons.html" %}
+{% include "includes/chatbot.html" %}
+
+<script src="{% static 'js/main.js' %}" defer></script>
+<script src="{% static 'js/chatbot.js' %}" defer></script>
+{% if enable_translate %}<script src="{% static 'js/i18n.js' %}" defer></script>{% endif %}
+{% block extra_js %}{% endblock %}
+</body>
+</html>

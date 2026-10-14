@@ -1,0 +1,24 @@
+{% load static %}
+{% if director_messages %}
+<section class="dmsg-section">
+  <div class="container dmsg-grid">
+    <div class="dmsg-person">
+      <img src="{% if company.director_photo %}{{ company.director_photo.url }}{% else %}{% static 'img/director.jpg' %}{% endif %}"
+           alt="{{ company.director_name|default:'Director' }}, {{ company.director_designation|default:'Managing Director' }} at {{ company.company_name }}"
+           class="dmsg-photo" loading="lazy">
+      {% if company.director_name %}<p class="dmsg-name">{{ company.director_name }}</p>{% endif %}
+      <p class="dmsg-role">{{ company.director_designation|default:"Managing Director" }}</p>
+    </div>
+    <div class="dmsg-list">
+      <span class="eyebrow">From the Director</span>
+      <h2>Messages from Our Director</h2>
+      {% for m in director_messages %}
+      <div class="dmsg-item">
+        <h3>{{ m.title }}</h3>
+        <p>{{ m.message|linebreaksbr }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

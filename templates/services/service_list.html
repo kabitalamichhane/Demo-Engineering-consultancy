@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Services</p>
+    <h1>Engineering &amp; Construction Services</h1>
+    <p>Engineering, construction, infrastructure and metal fabrication services from Highnoon Engineering Solutions in Pokhara, Nepal.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for service in services %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if service.image %}background-image:url('{{ service.image.url }}');{% endif %}"></div>
+        <div class="card-body">
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.short_description }}</p>
+          <a href="{{ service.get_absolute_url }}" class="card-link">Learn More &rarr;</a>
+        </div>
+      </div>
+      {% empty %}
+      <p>Services will be listed here shortly. Please check back soon or <a href="{% url 'inquiries:contact' %}">contact us</a> directly.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" style="padding:56px 0;">
+  <div class="container cta-inner">
+    <div>
+      <h2>Need Custom Metal Fabrication in Pokhara?</h2>
+      <p>Talk to our engineering team about your fabrication requirements.</p>
+    </div>
+    <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent btn-lg">Request a Quote</a>
+  </div>
+</section>
+{% endblock %}

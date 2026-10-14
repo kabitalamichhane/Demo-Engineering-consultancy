@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / <a href="{% url 'services:service_list' %}">Services</a> / {{ service.name }}</p>
+    <h1>{{ service.name }}</h1>
+    <p>{{ service.short_description }}</p>
+  </div>
+</section>
+
+<section>
+  <div class="container split fade-in">
+    <div>
+      {% if service.image %}<img src="{{ service.image.url }}" alt="{{ service.image_alt_text }}">{% endif %}
+    </div>
+    <div>
+      <h2>Overview</h2>
+      <p>{{ service.description|linebreaksbr }}</p>
+      {% if service.feature_list %}
+      <h3>What's Included</h3>
+      <ul class="check-list">
+        {% for feature in service.feature_list %}<li>{{ feature }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent">Request a Quote</a>
+    </div>
+  </div>
+</section>
+
+{% if related_services %}
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Related</span><h2>Other Services</h2></div>
+    <div class="grid grid-3">
+      {% for related in related_services %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if related.image %}background-image:url('{{ related.image.url }}');{% endif %}"></div>
+        <div class="card-body">
+          <h3>{{ related.name }}</h3>
+          <p>{{ related.short_description }}</p>
+          <a href="{{ related.get_absolute_url }}" class="card-link">Learn More &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

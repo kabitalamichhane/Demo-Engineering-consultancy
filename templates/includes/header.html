@@ -1,0 +1,59 @@
+{% load static %}
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span class="topbar-tag">Engineering &middot; Construction &middot; Infrastructure &middot; Metal Fabrication</span>
+    {% include "includes/language_switcher.html" %}
+    <div class="topbar-icons">
+      {% if facebook_url %}
+      <a href="{{ facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8c-.3 0-1.3-.2-2.4-.2-2.5 0-4.2 1.5-4.2 4.2v2.7H7.5v3.3h2.8V22h3.2z"/></svg>
+      </a>
+      {% endif %}
+      {% if company.linkedin_url %}
+      <a href="{{ company.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M5.4 8.6H2.2V20h3.2V8.6zM3.8 3.5a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM20 13.4c0-3-1.6-4.9-4.1-4.9-1.3 0-2.3.7-2.8 1.5V8.6H10V20h3.2v-6c0-1.6.8-2.6 2-2.6s1.6.9 1.6 2.5V20H20v-6.6z"/></svg>
+      </a>
+      {% endif %}
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ company.email|default:'info.highnoon2019@gmail.com'|urlencode }}&amp;su=Enquiry%20for%20Highnoon%20Engineering%20Solutions" target="_blank" rel="noopener noreferrer" aria-label="Email us" title="Email">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+      <a href="tel:{{ company.phone|default:'9856082231' }}" aria-label="Call us" title="Call">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="{% url 'core:home' %}" class="brand" aria-label="{{ company.company_name }} — Home">
+      {% if company.logo %}
+        <img src="{{ company.logo.url }}" alt="{{ company.company_name }} logo" class="brand-logo">
+      {% else %}
+        <img src="{% static 'img/logo.jpg' %}" alt="{{ company.company_name }} logo" class="brand-logo" data-fallback="show-next">
+        <span class="brand-mark" style="display:none;">{{ company.short_name|default:"HES" }}</span>
+      {% endif %}
+      <span class="brand-text">
+        <span class="brand-name notranslate" translate="no">{{ company.company_name|default:"Highnoon Engineering Solutions" }}</span>
+        <span class="brand-sub">Engineering &middot; Construction &middot; Metal Fabrication</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="{% url 'core:home' %}"{% if request.path == "/" %} class="active" aria-current="page"{% endif %}>Home</a></li>
+        <li><a href="{% url 'core:about' %}"{% if request.resolver_match.app_name == "core" and request.resolver_match.url_name == "about" %} class="active" aria-current="page"{% endif %}>About Us</a></li>
+        <li><a href="{% url 'services:service_list' %}"{% if request.resolver_match.app_name == "services" and request.resolver_match.url_name == "service_list" %} class="active" aria-current="page"{% endif %}>Services</a></li>
+        <li><a href="{% url 'projects:project_list' %}"{% if request.resolver_match.app_name == "projects" and request.resolver_match.url_name == "project_list" %} class="active" aria-current="page"{% endif %}>Projects</a></li>
+        <li><a href="{% url 'updates:update_list' %}"{% if request.resolver_match.app_name == "updates" and request.resolver_match.url_name == "update_list" %} class="active" aria-current="page"{% endif %}>Updates</a></li>
+        <li><a href="{% url 'careers:job_list' %}"{% if request.resolver_match.app_name == "careers" and request.resolver_match.url_name == "job_list" %} class="active" aria-current="page"{% endif %}>Careers</a></li>
+        <li><a href="{% url 'inquiries:work_with_us' %}"{% if request.resolver_match.app_name == "inquiries" and request.resolver_match.url_name == "work_with_us" %} class="active" aria-current="page"{% endif %}>Work With Us</a></li>
+        <li><a href="{% url 'inquiries:contact' %}"{% if request.resolver_match.app_name == "inquiries" and request.resolver_match.url_name == "contact" %} class="active" aria-current="page"{% endif %}>Contact Us</a></li>
+      </ul>
+      <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent nav-cta">Get a Quote</a>
+    </nav>
+  </div>
+</header>

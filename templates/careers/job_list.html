@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Careers</p>
+    <h1>Careers at Highnoon Engineering Solutions</h1>
+    <p>Join our team working on engineering, construction and metal fabrication projects in Pokhara, Nepal.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="grid grid-2">
+      {% for job in jobs %}
+      <div class="card fade-in"><div class="card-body">
+        <h3>{{ job.title }}</h3>
+        <p class="muted">{{ job.department }}{% if job.department %} &middot; {% endif %}{{ job.location }} &middot; {{ job.get_employment_type_display }}</p>
+        <p>{{ job.description|truncatewords:28 }}</p>
+        <a href="{{ job.get_absolute_url }}" class="card-link">View &amp; Apply &rarr;</a>
+      </div></div>
+      {% empty %}
+      <p>There are no open positions at the moment. Please check back later, or send your CV to <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ company.email|urlencode }}&amp;su=CV%20Submission" target="_blank" rel="noopener noreferrer">{{ company.email }}</a>.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

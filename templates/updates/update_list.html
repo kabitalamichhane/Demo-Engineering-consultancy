@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Updates</p>
+    <h1>Updates &amp; News</h1>
+    <p>Latest news, project updates and announcements from Highnoon Engineering Solutions.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for update in updates %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if update.featured_image %}background-image:url('{{ update.featured_image.url }}');{% endif %}">
+          <span class="badge badge-outline">{{ update.get_category_display }}</span>
+        </div>
+        <div class="card-body">
+          <h3>{{ update.title }}</h3>
+          <p>{{ update.excerpt }}</p>
+          <a href="{{ update.get_absolute_url }}" class="card-link">Read More &rarr;</a>
+        </div>
+      </div>
+      {% empty %}
+      <p>No updates published yet. Please check back soon.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

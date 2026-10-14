@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / <a href="{% url 'projects:project_list' %}">Projects</a> / {{ project.name }}</p>
+    <h1>{{ project.name }}{% if project.is_demo %}<span class="demo-flag">Demo Project</span>{% endif %}</h1>
+    <p>{{ project.get_category_display }}{% if project.location %} &middot; {{ project.location }}{% endif %}</p>
+  </div>
+</section>
+
+<section>
+  <div class="container split fade-in">
+    <div>
+      {% if project.featured_image %}<img src="{{ project.featured_image.url }}" alt="{{ project.image_alt_text }}">{% endif %}
+    </div>
+    <div>
+      <span class="badge badge-status-{{ project.status }}">{{ project.get_status_display }}</span>
+      <h2 style="margin-top:16px;">Project Overview</h2>
+      <p>{{ project.description|default:"Details for this project will be added soon."|linebreaksbr }}</p>
+
+      <ul class="check-list" style="list-style:none;padding:0;">
+        {% if project.client %}<li><strong>Client:</strong> {{ project.client }}</li>{% endif %}
+        {% if project.location %}<li><strong>Location:</strong> {{ project.location }}</li>{% endif %}
+        {% if project.start_date %}<li><strong>Start Date:</strong> {{ project.start_date }}</li>{% endif %}
+        {% if project.completion_date %}<li><strong>Completion Date:</strong> {{ project.completion_date }}</li>{% endif %}
+        {% if project.project_value %}<li><strong>Project Value:</strong> NPR {{ project.project_value }}</li>{% endif %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% if project.scope %}
+<section class="section-alt">
+  <div class="container fade-in">
+    <h2>Scope of Work</h2>
+    <p>{{ project.scope|linebreaksbr }}</p>
+  </div>
+</section>
+{% endif %}
+
+{% if project.gallery_images.all %}
+<section>
+  <div class="container">
+    <div class="section-head left"><span class="eyebrow">Gallery</span><h2>Project Images</h2></div>
+    <div class="grid grid-3">
+      {% for img in project.gallery_images.all %}
+      <div class="card fade-in">
+        <div class="card-media" style="background-image:url('{{ img.image.url }}');"></div>
+        {% if img.caption %}<div class="card-body"><p class="muted">{{ img.caption }}</p></div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="cta-band" style="padding:56px 0;">
+  <div class="container cta-inner">
+    <div><h2>Planning a similar project?</h2><p>Talk to our engineering team today.</p></div>
+    <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent btn-lg">Get a Quote</a>
+  </div>
+</section>
+{% endblock %}

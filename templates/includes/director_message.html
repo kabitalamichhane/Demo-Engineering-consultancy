@@ -1,0 +1,23 @@
+{% if company.has_director_message %}
+<section class="director-section">
+  <div class="container">
+    <div class="director-card">
+      <div class="director-photo-wrap">
+        {% if company.director_photo %}
+          <img src="{{ company.director_photo.url }}" alt="{{ company.director_name }}, {{ company.director_designation }} at {{ company.company_name }}" class="director-photo">
+        {% else %}
+          <div class="director-photo director-photo-placeholder">
+            <span>{{ company.director_name|slice:":1" }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <div class="director-content">
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="director-quote">{{ company.director_quote|linebreaksbr }}</blockquote>
+        <p class="director-name">{{ company.director_name }}</p>
+        <p class="director-title">{{ company.director_designation|default:"Managing Director" }}, {{ company.company_name }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

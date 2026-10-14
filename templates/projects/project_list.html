@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Projects</p>
+    <h1>Our Projects</h1>
+    <p>Engineering, construction, infrastructure and metal fabrication projects delivered by Highnoon Engineering Solutions.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="filter-bar">
+      <a href="{% url 'projects:project_list' %}" class="{% if not selected_category %}active{% endif %}">All Categories</a>
+      {% for value, label in categories %}
+        <a href="?category={{ value }}" class="{% if selected_category == value %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="grid grid-3">
+      {% for project in projects %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if project.featured_image %}background-image:url('{{ project.featured_image.url }}');{% endif %}">
+          <span class="badge badge-status-{{ project.status }}">{{ project.get_status_display }}</span>
+        </div>
+        <div class="card-body">
+          <h3>{{ project.name }}{% if project.is_demo %}<span class="demo-flag">Demo</span>{% endif %}</h3>
+          <p class="muted">{{ project.get_category_display }}{% if project.location %} &middot; {{ project.location }}{% endif %}</p>
+          <a href="{{ project.get_absolute_url }}" class="card-link">View Project &rarr;</a>
+        </div>
+      </div>
+      {% empty %}
+      <p>No projects found for this filter. <a href="{% url 'projects:project_list' %}">View all projects</a>.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

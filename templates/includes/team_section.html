@@ -1,0 +1,15 @@
+{% load static %}
+<section class="team-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our People</span>
+      <h2>{{ company.team_heading|default:"Meet Our Team" }}</h2>
+      <p>{{ company.team_text|default:"The people behind Highnoon Engineering Solutions, working together to deliver quality engineering, construction and metal fabrication." }}</p>
+    </div>
+    <figure class="team-figure fade-in">
+      <img src="{% if company.team_photo %}{{ company.team_photo.url }}{% else %}{% static 'img/team.jpg' %}{% endif %}"
+           alt="The {{ company.company_name|default:'Highnoon Engineering Solutions' }} team together" loading="lazy" class="team-photo">
+      <figcaption>The {{ company.short_name|default:"HES" }} team</figcaption>
+    </figure>
+  </div>
+</section>

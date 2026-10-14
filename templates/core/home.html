@@ -1,0 +1,196 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('{% if company.hero_image %}{{ company.hero_image.url }}{% else %}{% static 'img/featured-building.png' %}{% endif %}');" role="img" aria-label="Highnoon Engineering Solutions"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Engineering &middot; Construction &middot; Infrastructure &middot; Metal Fabrication</span>
+      <h1>{{ company.hero_heading|default:"Engineering Solutions Built for Tomorrow" }}</h1>
+      <p>{{ company.hero_subtext|default:"Engineering, construction and metal fabrication solutions delivered with a commitment to quality, safety and reliability." }}</p>
+      <div class="hero-actions">
+        <a href="{{ company.hero_button_1_url|default:'/services/' }}" class="btn btn-accent btn-lg">{{ company.hero_button_1_text|default:"Explore Our Services" }}</a>
+        <a href="{{ company.hero_button_2_url|default:'/work-with-us/' }}" class="btn btn-outline btn-lg">{{ company.hero_button_2_text|default:"Work With Us" }}</a>
+        <a href="{{ company.hero_button_3_url|default:'/get-a-quote/' }}" class="btn btn-ghost btn-lg" style="background:#fff;border-color:#fff;">{{ company.hero_button_3_text|default:"Get a Quote" }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if statistics %}
+<section class="stats-strip">
+  <div class="container stats-grid">
+    {% for stat in statistics %}
+    <div>
+      <div class="stat-value">{{ stat.value }}</div>
+      <div class="stat-title">{{ stat.title }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section>
+  <div class="container split fade-in">
+    <div>
+      <span class="eyebrow">Who We Are</span>
+      <h2>Engineering Solutions in Pokhara, Nepal</h2>
+      <p>
+        Highnoon Engineering Solutions Pvt. Ltd. is an engineering, construction and metal
+        fabrication company based in Pokhara, Nepal. We work across engineering consultancy,
+        building construction, infrastructure and structural works, with metal fabrication
+        as a core part of what we do — from steel structures and frames to gates, railings
+        and staircases built to specification.
+      </p>
+      <p>
+        {% if company.description %}{{ company.description }}{% else %}
+        Our approach combines careful engineering, practical construction methods and
+        custom fabrication, so that every project — residential, commercial, industrial or
+        institutional — is handled with attention to quality and safety from planning
+        through to completion.
+        {% endif %}
+      </p>
+      <a href="{% url 'core:about' %}" class="btn btn-dark">More About Us</a>
+    </div>
+    <div class="focus-panel" aria-label="Our areas of work">
+      <div class="focus-tile"><span>01</span><strong>Engineering</strong></div>
+      <div class="focus-tile"><span>02</span><strong>Construction</strong></div>
+      <div class="focus-tile"><span>03</span><strong>Infrastructure</strong></div>
+      <div class="focus-tile"><span>04</span><strong>Structural Works</strong></div>
+      <div class="focus-tile focus-tile-accent"><span>05</span><strong>Metal Fabrication</strong></div>
+      <div class="focus-tile"><span>06</span><strong>Custom Fabrication</strong></div>
+    </div>
+  </div>
+</section>
+
+{% include "includes/director_message.html" %}
+
+{% if services %}
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What We Do</span>
+      <h2>Engineering &amp; Construction Services in Nepal</h2>
+      <p>From engineering consultancy to structural and metal fabrication, Highnoon Engineering Solutions delivers services built around your project's requirements.</p>
+    </div>
+    <div class="grid grid-3">
+      {% for service in services %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if service.image %}background-image:url('{{ service.image.url }}');{% endif %}"></div>
+        <div class="card-body">
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.short_description }}</p>
+          <a href="{{ service.get_absolute_url }}" class="card-link">Learn More &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center" style="margin-top:32px;">
+      <a href="{% url 'services:service_list' %}" class="btn btn-ghost">View All Services</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section-dark">
+  <div class="container split fade-in">
+    <div class="fab-list">
+      <ul class="check-list">
+        <li>Custom metal fabrication</li>
+        <li>Structural steel fabrication</li>
+        <li>Steel frames and metal structures</li>
+        <li>Gates, railings, staircases and handrails</li>
+        <li>Industrial fabrication</li>
+        <li>Fabrication to drawings and specifications</li>
+      </ul>
+    </div>
+    <div>
+      <span class="eyebrow">Metal Fabrication Company in Pokhara, Nepal</span>
+      <h2>Custom &amp; Structural Metal Fabrication</h2>
+      <p>
+        Metal fabrication is a major part of what we do. We work on custom metal fabrication,
+        structural steel fabrication, steel frames, gates, railings, staircases and industrial
+        fabrication — built according to drawings and specifications, with installation support
+        where applicable.
+      </p>
+      <a href="{% url 'services:metal_fabrication' %}" class="btn btn-accent">Explore Metal Fabrication</a>
+    </div>
+  </div>
+</section>
+
+{% include "includes/building_showcase.html" %}
+
+{% if featured_projects %}
+<section class="showcase-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our Work</span>
+      <h2>Best of Our Projects</h2>
+      <p>A selection of the buildings and structures we're proudest of.</p>
+    </div>
+
+    <div class="showcase-grid">
+      {% for project in featured_projects %}
+      <a href="{{ project.get_absolute_url }}" class="showcase-item fade-in {% if forloop.first %}showcase-item-large{% endif %}">
+        <div class="showcase-media" style="{% if project.featured_image %}background-image:url('{{ project.featured_image.url }}');{% endif %}"></div>
+        <div class="showcase-overlay">
+          <span class="badge badge-status-{{ project.status }}">{{ project.get_status_display }}</span>
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.get_category_display }}{% if project.location %} &middot; {{ project.location }}{% endif %}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="text-center" style="margin-top:40px;">
+      <a href="{% url 'projects:project_list' %}" class="btn btn-ghost">View All Projects</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if clients %}
+<section class="section-alt section-tight">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Trusted By</span><h2>Clients &amp; Partners</h2></div>
+    <div class="logo-marquee">
+      <div class="logo-track">
+        {% for client in clients %}
+          {% if client.logo %}<img src="{{ client.logo.url }}" alt="{{ client.name }}">{% else %}<span>{{ client.name }}</span>{% endif %}
+        {% endfor %}
+        {% for client in clients %}
+          {% if client.logo %}<img src="{{ client.logo.url }}" alt="{{ client.name }}" aria-hidden="true">{% else %}<span aria-hidden="true">{{ client.name }}</span>{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if latest_updates %}
+<section>
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Latest</span><h2>Updates &amp; News</h2></div>
+    <div class="grid grid-3">
+      {% for update in latest_updates %}
+      <div class="card fade-in">
+        <div class="card-media" style="{% if update.featured_image %}background-image:url('{{ update.featured_image.url }}');{% endif %}"></div>
+        <div class="card-body">
+          <h3>{{ update.title }}</h3>
+          <p>{{ update.excerpt }}</p>
+          <a href="{{ update.get_absolute_url }}" class="card-link">Read More &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "includes/team_section.html" %}
+
+{% include "includes/director_messages.html" %}
+
+{% endblock %}

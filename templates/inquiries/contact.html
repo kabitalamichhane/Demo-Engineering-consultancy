@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Contact Us</p>
+    <h1>Contact Us</h1>
+    <p>Get in touch with Highnoon Engineering Solutions Pvt. Ltd. in Pokhara, Nepal.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="contact-info-grid fade-in">
+      <div class="contact-info-card">
+        <h3>Address</h3>
+        <p>{{ company.address_line|default:"Pokhara-14, BP Marg" }}<br>{{ company.city|default:"Pokhara" }}, {{ company.country|default:"Nepal" }}, {{ company.postal_code|default:"33700" }}</p>
+      </div>
+      <div class="contact-info-card">
+        <h3>Phone</h3>
+        <a href="tel:{{ company.phone|default:'9856082231' }}" class="btn btn-ghost">{{ company.phone|default:"9856082231" }}</a>
+      </div>
+      <div class="contact-info-card">
+        <h3>Email</h3>
+        <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ company.email|default:'info.highnoon2019@gmail.com'|urlencode }}&amp;su=Enquiry%20for%20Highnoon%20Engineering%20Solutions" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">{{ company.email|default:"info.highnoon2019@gmail.com" }}</a>
+        <p class="contact-alt"><a href="mailto:{{ company.email|default:'info.highnoon2019@gmail.com' }}">Prefer your email app? Click here &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container split fade-in">
+    <div>
+      <h2>Send Us a Message</h2>
+      <form method="post" novalidate class="form-card">
+        {% csrf_token %}
+        <div class="hp-field" aria-hidden="true">{{ form.hp_website }}</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Full Name</label>
+            {{ form.name }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.phone.id_for_label }}">Phone</label>
+            {{ form.phone }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.inquiry_type.id_for_label }}">Inquiry Type</label>
+            {{ form.inquiry_type }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Subject</label>
+          {{ form.subject }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.message.id_for_label }}">Message</label>
+          {{ form.message }}
+        </div>
+        <button type="submit" class="btn btn-accent btn-block">Send Message</button>
+      </form>
+    </div>
+
+    <div>
+      <h2>Our Location</h2>
+      <div class="map-wrap">
+        {% if company.map_embed_url %}
+          <iframe src="{{ company.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Highnoon Engineering Solutions location map"></iframe>
+        {% else %}
+          <div class="map-fallback">
+            <p><strong>{{ company.address_line|default:"Pokhara-14, BP Marg" }}, {{ company.city|default:"Pokhara" }}, {{ company.country|default:"Nepal" }}, {{ company.postal_code|default:"33700" }}</strong></p>
+            <p class="muted">A map embed URL can be added from Django Admin (Company Profile).</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

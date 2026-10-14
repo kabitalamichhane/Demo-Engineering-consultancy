@@ -1,0 +1,32 @@
+{% load static %}
+<section class="building-section">
+  <div class="container building-grid">
+    <div class="building-photo fade-in">
+      <img
+        src="{% if company.showcase_image %}{{ company.showcase_image.url }}{% else %}{% static 'img/featured-building.png' %}{% endif %}"
+        alt="{{ company.showcase_caption|default:'Multi-storey building with a red perforated metal facade' }}"
+        loading="lazy">
+      {% if company.showcase_caption %}<span class="building-caption">{{ company.showcase_caption }}</span>{% endif %}
+    </div>
+    <div class="building-copy fade-in">
+      <span class="eyebrow">Design Meets Fabrication</span>
+      <h2>{{ company.showcase_title|default:"Architecture in Metal" }}</h2>
+      <p>
+        {% if company.showcase_text %}{{ company.showcase_text|linebreaksbr }}{% else %}
+        From structural frames to perforated facade screens, fabricated metal shapes how a
+        building looks and performs. Explore what custom metal fabrication and engineering
+        can do for your project in Pokhara and across Nepal.
+        {% endif %}
+      </p>
+      <ul class="check-list">
+        <li>Structural steel and metal structures</li>
+        <li>Custom facade and cladding elements</li>
+        <li>Railings, staircases and handrails</li>
+      </ul>
+      <div class="hero-actions">
+        <a href="{% url 'projects:project_list' %}" class="btn btn-dark">View Our Projects</a>
+        <a href="{% url 'inquiries:get_a_quote' %}" class="btn btn-accent">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>

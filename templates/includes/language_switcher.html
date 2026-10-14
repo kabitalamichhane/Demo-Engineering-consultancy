@@ -1,0 +1,7 @@
+{% if enable_translate %}
+<div class="lang-switch notranslate" translate="no" role="group" aria-label="Choose language" data-dict-url="{% url 'core:i18n_dictionary' lang='xx' %}">
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">EN</button>
+  <button type="button" class="lang-btn" data-lang="ne" aria-label="Nepali">नेपाली</button>
+  <button type="button" class="lang-btn" data-lang="hi" aria-label="Hindi">हिन्दी</button>
+</div>
+{% endif %}
